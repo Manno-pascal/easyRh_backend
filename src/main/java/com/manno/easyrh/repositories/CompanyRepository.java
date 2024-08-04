@@ -1,6 +1,6 @@
-package com.manno.easyrh.repository;
+package com.manno.easyrh.repositories;
 
-import com.manno.easyrh.entity.Company;
+import com.manno.easyrh.entities.Company;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
