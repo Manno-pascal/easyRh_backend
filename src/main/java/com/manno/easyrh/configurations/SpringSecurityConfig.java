@@ -42,13 +42,14 @@ public class SpringSecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(
-                        authorize ->
-                                authorize
-                                        .requestMatchers(POST, "/register").permitAll()
-                                        .requestMatchers(POST, "/login").permitAll()
-                                        .anyRequest().authenticated()
-                )
+//                .authorizeHttpRequests(
+//                        authorize ->
+//                                authorize
+//                                        .requestMatchers(POST, "/register").permitAll()
+//                                        .requestMatchers(POST, "/login").permitAll()
+//                                        // A CHANGER SI EN PROD
+////                                        .anyRequest().authenticated()
+//                )
                 .httpBasic(Customizer.withDefaults())
                 .oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults()))
                 .build();

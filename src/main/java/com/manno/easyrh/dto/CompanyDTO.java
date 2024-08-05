@@ -1,15 +1,12 @@
 package com.manno.easyrh.dto;
 
+import com.manno.easyrh.enums.GenderType;
+import com.manno.easyrh.enums.PositionType;
+import lombok.Data;
 
-import lombok.*;
 
-@Getter
-@Setter
-@ToString
-@Builder
-@AllArgsConstructor
+@Data
 public class CompanyDTO {
-
     private int id;
     private String companyName;
     private String city;
@@ -21,4 +18,5 @@ public class CompanyDTO {
     private String contactFirstname;
     private String contactLastname;
     private String domain;
+    private String password;
 }

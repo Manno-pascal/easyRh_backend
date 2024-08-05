@@ -1,6 +1,7 @@
 package com.manno.easyrh.controllers;
 
 
+import com.manno.easyrh.dto.WorkerDTO;
 import com.manno.easyrh.entities.Worker;
 import com.manno.easyrh.services.WorkerService;
 import lombok.AllArgsConstructor;
@@ -24,7 +25,7 @@ public class WorkerController {
 
     @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE )
-    public Worker create(@RequestBody Worker worker) {return this.workerservice.create(worker);}
+    public WorkerDTO create(@RequestBody WorkerDTO workerDTO) {return this.workerservice.create(workerDTO);}
 
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     @DeleteMapping(path = "{id}")
@@ -32,14 +33,14 @@ public class WorkerController {
 
     @ResponseStatus()
     @GetMapping(path="company", produces = APPLICATION_JSON_VALUE)
-    public List<Worker> getWorkersByCompany() {return this.workerservice.getWorkersByCompany();}
+    public List<WorkerDTO> getWorkersByCompany() {return this.workerservice.getWorkersByCompany();}
 
     @ResponseStatus()
     @GetMapping(path = "{id}", produces = APPLICATION_JSON_VALUE)
-    public Worker getWorkerById(@PathVariable int id) {return this.workerservice.getWorkerById(id);}
+    public WorkerDTO getWorkerById(@PathVariable int id) {return this.workerservice.getWorkerById(id);}
 
-    @ResponseStatus()
+    @ResponseStatus(value = HttpStatus.OK)
     @PatchMapping(path = "{id}", produces = APPLICATION_JSON_VALUE)
-    public Worker patchWorker(@PathVariable int id, @RequestBody Map<String, Object> updates) {return this.workerservice.patchWorker(id, updates);}
+    public WorkerDTO patchWorker(@PathVariable int id, @RequestBody WorkerDTO updates) {return this.workerservice.patchWorker(id, updates);}
 
 }

@@ -1,8 +1,8 @@
 package com.manno.easyrh.controllers;
 
-import com.manno.easyrh.dto.AuthenticationDTO;
-import com.manno.easyrh.entities.Company;
 
+import com.manno.easyrh.dto.CompanyDTO;
+import com.manno.easyrh.entities.Company;
 import com.manno.easyrh.services.CompanyService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -21,13 +21,13 @@ public class CompanyController {
 
 
     @GetMapping(produces = APPLICATION_JSON_VALUE)
-    public List<Company> getCompanies(){return this.companyService.getCompanies();}
+    public List<CompanyDTO> getCompanies(){return this.companyService.getCompaniesDTO();}
 
     @GetMapping(path="{id}", produces = APPLICATION_JSON_VALUE)
-    public Company getCompanyById(@PathVariable int id){
+    public CompanyDTO getCompanyById(@PathVariable int id){
         return this.companyService.getCompanyById(id);
     }
 
     @GetMapping(path = "me", produces = APPLICATION_JSON_VALUE)
-    public Company me() {return this.companyService.me();}
+    public CompanyDTO me() {return this.companyService.me();}
 }

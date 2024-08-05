@@ -1,7 +1,7 @@
 package com.manno.easyrh.controllers;
 
 import com.manno.easyrh.dto.AuthenticationDTO;
-import com.manno.easyrh.entities.Company;
+import com.manno.easyrh.dto.CompanyDTO;
 import com.manno.easyrh.services.SecurityService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,8 +23,8 @@ public class SecurityController {
 
     @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping(path = "register", consumes = APPLICATION_JSON_VALUE)
-    public Map<String,String> register(@RequestBody Company company) {
-        return Map.of("bearer",this.securityService.register(company));
+    public Map<String,String> register(@RequestBody CompanyDTO companyDTO) {
+        return Map.of("bearer",this.securityService.register(companyDTO));
     }
 
     @PostMapping(path = "login", consumes = APPLICATION_JSON_VALUE)
