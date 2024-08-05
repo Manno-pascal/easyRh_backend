@@ -18,9 +18,10 @@ public class WorkerController {
         this.workerservice = workerservice;
     }
 
-    @ResponseStatus(value = HttpStatus.CREATED) //On spécifie les codes retournés
-    @PostMapping(consumes = APPLICATION_JSON_VALUE) //On spécifie le format des données attendues (application/json)
+    @ResponseStatus(value = HttpStatus.CREATED)
+    @PostMapping(consumes = APPLICATION_JSON_VALUE)
     public void create(@RequestBody Worker worker) {
+
         this.workerservice.create(worker);
     }
 

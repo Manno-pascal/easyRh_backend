@@ -43,8 +43,6 @@ public class SecurityService {
             if (authenticate.isAuthenticated()) {
                 return this.jwtService.generateToken(authenticationDTO.username());
             }
-
-
         return null;
     }
 

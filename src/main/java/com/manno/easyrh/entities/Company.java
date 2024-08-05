@@ -1,5 +1,6 @@
 package com.manno.easyrh.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,6 +31,7 @@ public class Company implements UserDetails {
     private String contactFirstname;
     private String contactLastname;
     private String domain;
+    @JsonIgnore
     private String password;
 
     public Company() {
