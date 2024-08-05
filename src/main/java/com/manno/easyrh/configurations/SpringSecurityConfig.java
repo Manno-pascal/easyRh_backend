@@ -1,8 +1,10 @@
 package com.manno.easyrh.configurations;
 
-import com.manno.easyrh.services.CompanyService;
+import com.nimbusds.jose.jwk.source.ImmutableSecret;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,14 +18,24 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.JwtEncoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import static org.springframework.http.HttpMethod.POST;
 
+import javax.crypto.spec.SecretKeySpec;
+
+
+import static org.springframework.http.HttpMethod.POST;
 @Slf4j
 @Configuration
 @EnableWebSecurity
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class SpringSecurityConfig {
+
+    @Value("${security.jwt.secret-key}")
+    private String secretKey;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -49,7 +61,6 @@ public class SpringSecurityConfig {
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        log.info("uh");
         return authenticationConfiguration.getAuthenticationManager();
     }
 
@@ -61,13 +72,14 @@ public class SpringSecurityConfig {
         return daoAuthenticationProvider;
     }
 
-//    private String jwtKey = "laclegeneree256….";
+    @Bean
+    public JwtDecoder jwtDecoder() {
+        return NimbusJwtDecoder.withSecretKey(new SecretKeySpec(this.secretKey.getBytes(), "HMACSHA256")).build();
+    }
 
-//    @Bean
-//    public JwtDecoder jwtDecoder() {
-//        SecretKeySpec secretKey = new SecretKeySpec(this.jwtKey.getBytes(), 0, this.jwtKey.getBytes().length, "RSA");
-//        return NimbusJwtDecoder.withSecretKey(secretKey).macAlgorithm(MacAlgorithm.HS256).build();
-//    }
-
+    @Bean
+    public JwtEncoder jwtEncoder() {
+        return new NimbusJwtEncoder(new ImmutableSecret<>(this.secretKey.getBytes()));
+    }
 
 }
