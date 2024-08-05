@@ -1,7 +1,4 @@
 package com.manno.easyrh.dto;
-
-import com.manno.easyrh.enums.GenderType;
-import com.manno.easyrh.enums.PositionType;
 import lombok.Data;
 
 

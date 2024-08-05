@@ -4,12 +4,10 @@ import com.manno.easyrh.dto.CompanyDTO;
 import com.manno.easyrh.entities.Company;
 import com.manno.easyrh.mappers.CompanyMapper;
 import com.manno.easyrh.repositories.CompanyRepository;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

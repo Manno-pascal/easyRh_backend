@@ -2,15 +2,13 @@ package com.manno.easyrh.controllers;
 
 
 import com.manno.easyrh.dto.WorkerDTO;
-import com.manno.easyrh.entities.Worker;
 import com.manno.easyrh.services.WorkerService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.Map;
+
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
