@@ -21,7 +21,6 @@ public class CompanyService {
     private final CompanyRepository companyRepository;
     private final CompanyMapper companyMapper;
 
-
     public List<CompanyDTO> getCompaniesDTO(){
         return this.companyRepository.findAll().stream().map(companyMapper::toDto).collect(Collectors.toList());
     }
