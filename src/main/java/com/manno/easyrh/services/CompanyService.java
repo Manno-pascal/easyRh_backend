@@ -6,7 +6,6 @@ import com.manno.easyrh.mappers.CompanyMapper;
 import com.manno.easyrh.repositories.CompanyRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +19,7 @@ public class CompanyService {
 
     private final CompanyRepository companyRepository;
     private final CompanyMapper companyMapper;
+    private final SecurityService securityService;
 
     public List<CompanyDTO> getCompaniesDTO(){
         return this.companyRepository.findAll().stream().map(companyMapper::toDto).collect(Collectors.toList());
@@ -31,9 +31,15 @@ public class CompanyService {
     }
 
     public CompanyDTO me() {
-        String companyEmail = SecurityContextHolder.getContext().getAuthentication().getName();
-        return companyMapper.toDto(this.companyRepository.findByEmail(companyEmail));
+        return companyMapper.toDto(this.securityService.getCompanySession());
     }
 
+    public CompanyDTO patchCompany(CompanyDTO updates) {
+            Company modifiedCompany = companyMapper.toEntity(updates,securityService.getCompanySession());
+            return companyMapper.toDto(companyRepository.save(modifiedCompany));
+    }
 
+    public void deleteCompany() {
+        companyRepository.delete(securityService.getCompanySession());
+    }
 }

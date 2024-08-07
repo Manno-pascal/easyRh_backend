@@ -38,7 +38,7 @@ public class WorkerController {
     public WorkerDTO getWorkerById(@PathVariable int id) {return this.workerservice.getWorkerById(id);}
 
     @ResponseStatus(value = HttpStatus.OK)
-    @PatchMapping(path = "{id}", produces = APPLICATION_JSON_VALUE)
+    @PatchMapping(path = "{id}", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     public WorkerDTO patchWorker(@PathVariable int id, @RequestBody WorkerDTO updates) {return this.workerservice.patchWorker(id, updates);}
 
 }

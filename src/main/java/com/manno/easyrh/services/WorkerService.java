@@ -28,8 +28,7 @@ public class WorkerService {
         if (this.workerRepository.findByEmail(workerDTO.getEmail()) == null) {
             workerDTO.setCompany(companyService.me());
             Worker worker = workerMapper.toEntity(workerDTO);
-            this.workerRepository.save(worker);
-            return workerMapper.toDto(worker);
+            return workerMapper.toDto(this.workerRepository.save(worker));
         }
         return null;
     }
@@ -72,8 +71,7 @@ public class WorkerService {
         }
         if (company.getId() == worker.getCompany().getId()) {
                 Worker modifiedWorker = workerMapper.toEntity(updates,worker);
-                workerRepository.save(modifiedWorker);
-            return workerMapper.toDto(workerRepository.findById(modifiedWorker.getId()).get());
+            return workerMapper.toDto(workerRepository.save(modifiedWorker));
         }
         return null;
     }

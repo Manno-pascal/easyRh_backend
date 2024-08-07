@@ -2,6 +2,7 @@ package com.manno.easyrh.controllers;
 
 
 import com.manno.easyrh.dto.CompanyDTO;
+import com.manno.easyrh.dto.WorkerDTO;
 import com.manno.easyrh.entities.Company;
 import com.manno.easyrh.services.CompanyService;
 import lombok.AllArgsConstructor;
@@ -30,4 +31,10 @@ public class CompanyController {
 
     @GetMapping(path = "me", produces = APPLICATION_JSON_VALUE)
     public CompanyDTO me() {return this.companyService.me();}
+
+    @PatchMapping(produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+    public CompanyDTO PatchCompany(@RequestBody CompanyDTO companyDTO) {return this.companyService.patchCompany(companyDTO);}
+
+    @DeleteMapping()
+    public void DeleteCompany() {this.companyService.deleteCompany();}
 }

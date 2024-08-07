@@ -36,5 +36,5 @@ build/
 private.pem
 public.pem
 .env
-src/main/resources/application.properties
+/src/main/resources/application.properties
 

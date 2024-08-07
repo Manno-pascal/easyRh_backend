@@ -9,6 +9,7 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -38,6 +39,8 @@ public class Company implements UserDetails {
     @Column(name = "contact_lastname")
     private String contactLastname;
     private String domain;
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Worker> children = new ArrayList<>();
     @JsonIgnore
     private String password;
 
