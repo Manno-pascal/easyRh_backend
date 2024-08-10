@@ -31,6 +31,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.springframework.http.HttpMethod.POST;
 
 @Slf4j
 @Configuration
@@ -44,7 +45,7 @@ public class SpringSecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:4200")); // Changez l'origine en fonction de vos besoins
+        configuration.setAllowedOrigins(List.of("http://localhost:4200"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With"));
         configuration.setAllowCredentials(true);
@@ -60,14 +61,13 @@ public class SpringSecurityConfig {
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//                .authorizeHttpRequests(
-//                        authorize ->
-//                                authorize
-//                                        .requestMatchers(POST, "/register").permitAll()
-//                                        .requestMatchers(POST, "/login").permitAll()
-//                                        // A CHANGER SI EN PROD
-////                                        .anyRequest().authenticated()
-//                )
+                .authorizeHttpRequests(
+                        authorize ->
+                                authorize
+                                        .requestMatchers(POST, "/register").permitAll()
+                                        .requestMatchers(POST, "/login").permitAll()
+                                        .anyRequest().authenticated()
+                )
                 .httpBasic(Customizer.withDefaults())
                 .oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults()))
                 .build();
