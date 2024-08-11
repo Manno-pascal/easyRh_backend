@@ -1,8 +1,9 @@
-package com.manno.easyrh.services;
+package com.manno.easyrh.service;
 
-import com.manno.easyrh.entities.Company;
-import com.manno.easyrh.repositories.CompanyRepository;
+import com.manno.easyrh.model.Company;
+import com.manno.easyrh.repository.CompanyRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class JWTService  implements UserDetailsService {

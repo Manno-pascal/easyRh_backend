@@ -1,9 +1,9 @@
-package com.manno.easyrh.services;
+package com.manno.easyrh.service;
 
 import com.manno.easyrh.dto.CompanyDTO;
-import com.manno.easyrh.entities.Company;
-import com.manno.easyrh.mappers.CompanyMapper;
-import com.manno.easyrh.repositories.CompanyRepository;
+import com.manno.easyrh.model.Company;
+import com.manno.easyrh.mapper.CompanyMapper;
+import com.manno.easyrh.repository.CompanyRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

@@ -1,5 +1,5 @@
 
-package com.manno.easyrh.configurations;
+package com.manno.easyrh.configuration;
 
 import com.nimbusds.jose.jwk.source.ImmutableSecret;
 import lombok.RequiredArgsConstructor;

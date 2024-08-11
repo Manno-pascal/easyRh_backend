@@ -1,8 +1,8 @@
-package com.manno.easyrh.repositories;
+package com.manno.easyrh.repository;
 
 
-import com.manno.easyrh.entities.Company;
-import com.manno.easyrh.entities.Worker;
+import com.manno.easyrh.model.Company;
+import com.manno.easyrh.model.Worker;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

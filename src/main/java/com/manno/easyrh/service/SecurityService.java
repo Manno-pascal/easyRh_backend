@@ -1,10 +1,10 @@
-package com.manno.easyrh.services;
+package com.manno.easyrh.service;
 
 import com.manno.easyrh.dto.AuthenticationDTO;
 import com.manno.easyrh.dto.CompanyDTO;
-import com.manno.easyrh.entities.Company;
-import com.manno.easyrh.mappers.CompanyMapper;
-import com.manno.easyrh.repositories.CompanyRepository;
+import com.manno.easyrh.model.Company;
+import com.manno.easyrh.mapper.CompanyMapper;
+import com.manno.easyrh.repository.CompanyRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -42,17 +42,18 @@ public class SecurityService {
         try {
             Authentication authenticate = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            authenticationDTO.username(),
-                            authenticationDTO.password()
+                            authenticationDTO.getUsername(),
+                            authenticationDTO.getPassword()
                     )
             );
             if (authenticate.isAuthenticated()) {
-                return jwtService.generateToken(authenticationDTO.username());
+                return jwtService.generateToken(authenticationDTO.getUsername());
             }
-            throw new RuntimeException("Invalid email or password.");
+            throw new RuntimeException("Invalid email or password");
         } catch (Exception e) {
-            throw new RuntimeException("Invalid email or password.");
-        }}
+            throw new RuntimeException("Invalid email or password");
+        }
+    }
 
 
     public Company getCompanySession() {

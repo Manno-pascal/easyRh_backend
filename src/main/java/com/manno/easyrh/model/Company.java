@@ -1,4 +1,4 @@
-package com.manno.easyrh.entities;
+package com.manno.easyrh.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

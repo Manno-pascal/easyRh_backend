@@ -1,8 +1,8 @@
-package com.manno.easyrh.mappers;
+package com.manno.easyrh.mapper;
 
 import com.manno.easyrh.dto.WorkerDTO;
-import com.manno.easyrh.entities.Worker;
-import com.manno.easyrh.repositories.CompanyRepository;
+import com.manno.easyrh.model.Worker;
+import com.manno.easyrh.repository.CompanyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package com.manno.easyrh.entities;
+package com.manno.easyrh.model;
 
 import com.manno.easyrh.enums.GenderType;
 import com.manno.easyrh.enums.PositionType;

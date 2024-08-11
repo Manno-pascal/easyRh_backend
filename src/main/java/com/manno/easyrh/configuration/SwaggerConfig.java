@@ -1,4 +1,4 @@
-package com.manno.easyrh.configurations;
+package com.manno.easyrh.configuration;
 
 import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;

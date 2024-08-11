@@ -1,16 +1,13 @@
-package com.manno.easyrh.controllers;
+package com.manno.easyrh.controller;
 
 
 import com.manno.easyrh.dto.CompanyDTO;
-import com.manno.easyrh.dto.WorkerDTO;
-import com.manno.easyrh.entities.Company;
-import com.manno.easyrh.services.CompanyService;
+import com.manno.easyrh.service.CompanyService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 
 

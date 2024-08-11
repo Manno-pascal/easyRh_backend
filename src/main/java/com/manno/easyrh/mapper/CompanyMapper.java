@@ -1,8 +1,8 @@
-package com.manno.easyrh.mappers;
+package com.manno.easyrh.mapper;
 
 
 import com.manno.easyrh.dto.CompanyDTO;
-import com.manno.easyrh.entities.Company;
+import com.manno.easyrh.model.Company;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;

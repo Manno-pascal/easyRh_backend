@@ -1,18 +1,16 @@
-package com.manno.easyrh.services;
+package com.manno.easyrh.service;
 
 
 import com.manno.easyrh.dto.WorkerDTO;
-import com.manno.easyrh.entities.Company;
-import com.manno.easyrh.entities.Worker;
-import com.manno.easyrh.mappers.WorkerMapper;
-import com.manno.easyrh.repositories.WorkerRepository;
+import com.manno.easyrh.model.Company;
+import com.manno.easyrh.model.Worker;
+import com.manno.easyrh.mapper.WorkerMapper;
+import com.manno.easyrh.repository.WorkerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
