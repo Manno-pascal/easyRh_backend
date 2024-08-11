@@ -26,26 +26,33 @@ public class SecurityService {
 
 
     public String register(CompanyDTO companyDto) {
-        if (this.companyRepository.findByEmail(companyDto.getEmail()) != null)
-            throw new RuntimeException("Email déjà utilisé");
-        AuthenticationDTO authenticationDTO = new AuthenticationDTO(companyDto.getEmail(), companyDto.getPassword());
-        this.companyRepository.save(companyMapper.toEntity(companyDto));
-        //J'ai un doute ici, je crée une instance d'authentication avant d'avoir save l'utilisateur en bdd
-        return this.login(authenticationDTO);
+        if (this.companyRepository.findByEmail(companyDto.getEmail()) != null) {
+            throw new RuntimeException("Email is already registered.");
+        }
+        try {
+            AuthenticationDTO authenticationDTO = new AuthenticationDTO(companyDto.getEmail(), companyDto.getPassword());
+            this.companyRepository.save(companyMapper.toEntity(companyDto));
+            return this.login(authenticationDTO);
+        } catch (Exception e) {
+            throw new RuntimeException("Error while creating the company.");
+        }
     }
 
     public String login(AuthenticationDTO authenticationDTO) {
-            final Authentication authenticate = authenticationManager.authenticate(
+        try {
+            Authentication authenticate = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             authenticationDTO.username(),
                             authenticationDTO.password()
                     )
             );
             if (authenticate.isAuthenticated()) {
-                return this.jwtService.generateToken(authenticationDTO.username());
+                return jwtService.generateToken(authenticationDTO.username());
             }
-        return null;
-    }
+            throw new RuntimeException("Invalid email or password.");
+        } catch (Exception e) {
+            throw new RuntimeException("Invalid email or password.");
+        }}
 
 
     public Company getCompanySession() {

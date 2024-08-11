@@ -35,11 +35,21 @@ public class CompanyService {
     }
 
     public CompanyDTO patchCompany(CompanyDTO updates) {
+        try {
             Company modifiedCompany = companyMapper.toEntity(updates,securityService.getCompanySession());
             return companyMapper.toDto(companyRepository.save(modifiedCompany));
+        }catch (Exception e){
+            throw new RuntimeException("Error while editing the company.");
+        }
+
     }
 
     public void deleteCompany() {
-        companyRepository.delete(securityService.getCompanySession());
+        try {
+            companyRepository.delete(securityService.getCompanySession());
+        }catch (Exception e){
+            throw new RuntimeException("Error while deleting the company.");
+        }
+
     }
 }

@@ -9,6 +9,7 @@ import com.manno.easyrh.repositories.WorkerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -30,49 +31,53 @@ public class WorkerService {
             Worker worker = workerMapper.toEntity(workerDTO);
             return workerMapper.toDto(this.workerRepository.save(worker));
         }
-        return null;
+        throw new RuntimeException("Email is already registered.");
     }
 
-    public boolean delete(int id) {
+    public void delete(int id) {
         Company company = securityService.getCompanySession();
-        Optional<Worker> optionnalWorker = workerRepository.findById(id);
-        if (optionnalWorker == null) {
-            return false;
+        Worker worker = workerRepository.findById(id).orElse(null);
+        if (worker == null) {
+            throw new RuntimeException("No worker associated with this company could be found with this ID.");
         }
-        if (company.getId() == optionnalWorker.get().getCompany().getId()) {
-            this.workerRepository.delete(optionnalWorker.get());
-            return true;
+        if (company.getId() == worker.getCompany().getId()) {
+            this.workerRepository.delete(worker);
         }
-        return false;
+        throw new RuntimeException("Error while deleting the worker.");
     }
 
     public List<WorkerDTO> getWorkersByCompany() {
-        return this.workerRepository.findAllByCompany(securityService.getCompanySession()).stream().map(workerMapper::toDto).collect(Collectors.toList());
+        List<WorkerDTO> workerDTOs = this.workerRepository.findAllByCompany(securityService.getCompanySession()).stream().map(workerMapper::toDto).toList();
+        if (workerDTOs.isEmpty()) {
+            throw new RuntimeException("No employee found in the company.");
+        }
+        return workerDTOs;
     }
 
     public WorkerDTO getWorkerById(int id) {
         Company company = securityService.getCompanySession();
         Worker worker = workerRepository.findById(id).orElse(null);
         if (worker == null) {
-            return null;
+            throw new RuntimeException("No worker associated with this company could be found with this ID.");
         }
         if (company.getId() == worker.getCompany().getId()) {
             return this.workerMapper.toDto(worker);
 
         }
-        return null;
+        throw new RuntimeException("No worker associated with this company could be found with this ID.");
+
     }
 
     public WorkerDTO patchWorker(int id, WorkerDTO updates) {
         Company company = securityService.getCompanySession();
         Worker worker = workerRepository.findById(id).orElse(null);
         if (worker == null) {
-            return null;
+            throw new RuntimeException("No worker associated with this company could be found with this ID.");
         }
         if (company.getId() == worker.getCompany().getId()) {
-                Worker modifiedWorker = workerMapper.toEntity(updates,worker);
+            Worker modifiedWorker = workerMapper.toEntity(updates, worker);
             return workerMapper.toDto(workerRepository.save(modifiedWorker));
         }
-        return null;
+        throw new RuntimeException("No worker associated with this company could be found with this ID.");
     }
 }

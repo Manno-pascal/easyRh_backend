@@ -6,6 +6,7 @@ import com.manno.easyrh.services.SecurityService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -21,14 +22,22 @@ public class SecurityController {
 
     private final SecurityService securityService;
 
-    @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping(path = "register", consumes = APPLICATION_JSON_VALUE)
-    public Map<String,String> register(@RequestBody CompanyDTO companyDTO) {
-        return Map.of("bearer",this.securityService.register(companyDTO));
+    public ResponseEntity<Object> register(@RequestBody CompanyDTO companyDTO) {
+        try{
+            return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("bearer",this.securityService.register(companyDTO)));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     @PostMapping(path = "login", consumes = APPLICATION_JSON_VALUE)
-    public Map<String,String> login(@RequestBody AuthenticationDTO authenticationDTO) {
-        return Map.of("bearer",this.securityService.login(authenticationDTO));
+    public ResponseEntity<Object> login(@RequestBody AuthenticationDTO authenticationDTO) {
+        try {
+            return ResponseEntity.ok(Map.of("bearer",this.securityService.login(authenticationDTO)));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+
     }
 }
