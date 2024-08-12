@@ -3,9 +3,11 @@ package com.manno.easyrh.controller;
 
 import com.manno.easyrh.dto.CompanyDTO;
 import com.manno.easyrh.service.CompanyService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -39,8 +41,11 @@ public class CompanyController {
     }
 
     @PatchMapping(produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> PatchCompany(@RequestBody CompanyDTO companyDTO) {
+    public ResponseEntity<Object> PatchCompany(@Valid @RequestBody CompanyDTO companyDTO, BindingResult bindingResult) {
         try {
+            if (bindingResult.hasErrors()) {
+                throw new RuntimeException(bindingResult.getFieldError().getDefaultMessage());
+            }
             return ResponseEntity.status(HttpStatus.OK).body(Map.of("bearer",this.companyService.patchCompany(companyDTO)));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
