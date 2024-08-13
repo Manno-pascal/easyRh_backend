@@ -3,6 +3,7 @@ package com.manno.easyrh.controller;
 import com.manno.easyrh.dto.AuthenticationDTO;
 import com.manno.easyrh.dto.CompanyDTO;
 import com.manno.easyrh.service.SecurityService;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,24 +26,24 @@ public class SecurityController {
     private final SecurityService securityService;
 
     @PostMapping(path = "register", consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> register(@Valid @RequestBody CompanyDTO companyDTO, BindingResult bindingResult) {
+    public ResponseEntity<Object> register(@Valid @RequestBody CompanyDTO companyDTO, BindingResult bindingResult, HttpServletResponse response) {
         try{
             if (bindingResult.hasErrors()) {
                 throw new RuntimeException(bindingResult.getFieldError().getDefaultMessage());
             }
-            return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("bearer",this.securityService.register(companyDTO)));
+            return ResponseEntity.status(HttpStatus.OK).body(this.securityService.register(companyDTO));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
     @PostMapping(path = "login", consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> login(@Valid @RequestBody AuthenticationDTO authenticationDTO, BindingResult bindingResult) {
+    public ResponseEntity<Object> login(@Valid @RequestBody AuthenticationDTO authenticationDTO, BindingResult bindingResult, HttpServletResponse response) {
         try {
             if (bindingResult.hasErrors()) {
                 throw new RuntimeException(bindingResult.getFieldError().getDefaultMessage());
             }
-            return ResponseEntity.ok(Map.of("bearer",this.securityService.login(authenticationDTO)));
+            return ResponseEntity.status(HttpStatus.OK).body(this.securityService.login(authenticationDTO));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }

@@ -46,7 +46,7 @@ public class CompanyController {
             if (bindingResult.hasErrors()) {
                 throw new RuntimeException(bindingResult.getFieldError().getDefaultMessage());
             }
-            return ResponseEntity.status(HttpStatus.OK).body(Map.of("bearer",this.companyService.patchCompany(companyDTO)));
+            return ResponseEntity.status(HttpStatus.OK).body(this.companyService.patchCompany(companyDTO));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }

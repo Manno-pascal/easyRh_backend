@@ -7,6 +7,7 @@ import com.manno.easyrh.mapper.CompanyMapper;
 import com.manno.easyrh.repository.CompanyRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -60,7 +61,6 @@ public class SecurityService {
         String companyEmail = SecurityContextHolder.getContext().getAuthentication().getName();
         return this.companyRepository.findByEmail(companyEmail);
     }
-
 
 
 }
