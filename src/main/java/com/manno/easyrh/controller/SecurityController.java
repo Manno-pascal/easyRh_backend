@@ -31,7 +31,9 @@ public class SecurityController {
             if (bindingResult.hasErrors()) {
                 throw new RuntimeException(bindingResult.getFieldError().getDefaultMessage());
             }
-            return ResponseEntity.status(HttpStatus.OK).body(this.securityService.register(companyDTO));
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    Map.of("bearer", this.securityService.register(companyDTO))
+            );
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
@@ -43,7 +45,7 @@ public class SecurityController {
             if (bindingResult.hasErrors()) {
                 throw new RuntimeException(bindingResult.getFieldError().getDefaultMessage());
             }
-            return ResponseEntity.status(HttpStatus.OK).body(this.securityService.login(authenticationDTO));
+            return ResponseEntity.status(HttpStatus.OK).body(Map.of("bearer", this.securityService.login(authenticationDTO)));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
